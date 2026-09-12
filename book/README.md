@@ -24,6 +24,8 @@ book/
 └── scripts/
 ```
 
+The compiled PDFs currently contain the title and the author. Chapter files under `parts/` are not included until they are written.
+
 Narrative spine: **Representation → Learning → Generation → Intelligence**. Mathematics is woven into chapters; it is not a separate part.
 
 ## Build

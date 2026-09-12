@@ -24,6 +24,9 @@ for path in "$LIGHT_PDF" "$DARK_PDF"; do
   fi
 done
 
+LIGHT_PDF="$(realpath "$LIGHT_PDF")"
+DARK_PDF="$(realpath "$DARK_PDF")"
+
 AUTH_URL="https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
 
 git_identity() {

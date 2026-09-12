@@ -59,10 +59,6 @@ jobs:
         uses: xu-cheng/texlive-action@v2
         with:
           scheme: small
-          extra_packages: >-
-            latexmk booktabs enumitem mathtools natbib hyperref bookmark
-            microtype setspace geometry xcolor graphics pgf lmodern amsmath
-            amscls amsfonts
           run: bash book/scripts/build.sh all
       - name: Publish PDFs to Git LFS
         if: steps.publish.outputs.run == 'true'

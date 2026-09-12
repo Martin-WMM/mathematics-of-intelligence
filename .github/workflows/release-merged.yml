@@ -28,7 +28,7 @@ jobs:
               "git push origin book-" + scope + "-0.1.0",
               "```",
               "",
-              "`deploy/web` rebuilds from `main` when `website/` changed.",
+              "`deploy/web` rebuilds when a merged PR changes `website/`.",
             ].join("\n");
             await github.rest.issues.createComment({
               owner: context.repo.owner,

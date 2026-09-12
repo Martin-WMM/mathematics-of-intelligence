@@ -23,7 +23,9 @@ function Invoke-Edition {
     Write-Host "Building $Root ..."
     pdflatex -interaction=nonstopmode -halt-on-error -output-directory=build $Root | Out-Host
     $stem = [System.IO.Path]::GetFileNameWithoutExtension($Root)
-    if (Get-Command bibtex -ErrorAction SilentlyContinue) {
+    $aux = Join-Path $BookDir "build\$stem.aux"
+    $needsBib = (Test-Path $aux) -and (Select-String -Path $aux -Pattern '\\bibdata' -Quiet)
+    if ($needsBib -and (Get-Command bibtex -ErrorAction SilentlyContinue)) {
         bibtex "build/$stem" | Out-Host
     }
     pdflatex -interaction=nonstopmode -halt-on-error -output-directory=build $Root | Out-Host

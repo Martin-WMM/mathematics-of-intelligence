@@ -32,7 +32,7 @@ PATTERNS = {
     "feature": re.compile(rf"^feature/({SEGMENT})/({KEYWORDS})$"),
     "fix-main": re.compile(rf"^fix/main/({KEYWORDS})$"),
     "fix-release": re.compile(rf"^fix/release/({SEGMENT})/({KEYWORDS})$"),
-    "deploy": re.compile(r"^deploy/(web|preview)$"),
+    "deploy": re.compile(r"^deploy/(web|preview|book)$"),
 }
 
 
@@ -64,7 +64,7 @@ def main() -> int:
     parser.add_argument(
         "--allow-deploy",
         action="store_true",
-        help="Accept deploy/web and deploy/preview (CI only).",
+        help="Accept deploy/web, deploy/preview, and deploy/book (CI only).",
     )
     parsed = parser.parse_args()
     kind = classify_branch(parsed.name)
@@ -73,7 +73,7 @@ def main() -> int:
         print(
             "allowed: main | release/<scope> | feature/<scope>/<keywords> | "
             "fix/main/<keywords> | fix/release/<scope>/<keywords> | "
-            "deploy/web | deploy/preview",
+            "deploy/web | deploy/preview | deploy/book",
             file=sys.stderr,
         )
         return 1

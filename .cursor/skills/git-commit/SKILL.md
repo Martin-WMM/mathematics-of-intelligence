@@ -45,7 +45,7 @@ All commit messages **must be in English** and follow:
 Before committing:
 
 ```bash
-python scripts/git/check_commit_size.py
+python .github/scripts/check_commit_size.py
 ```
 
 If the check fails:
@@ -67,10 +67,10 @@ When the user asks to commit:
    - `git diff --cached` (staged)
    - `git log -5 --oneline` (match recent style)
 2. Stage only files relevant to **one logical change**.
-3. Run `python scripts/git/check_commit_size.py`.
+3. Run `python .github/scripts/check_commit_size.py`.
 4. If over 500 lines, unstage and split; repeat from step 2.
 5. Draft an English message: `<emoji>[<scope>][<type>]: <message>`.
-6. Run `python scripts/git/check_commit_message.py` on that subject (or rely on the commit-msg hook).
+6. Run `python .github/scripts/check_commit_message.py` on that subject (or rely on the commit-msg hook).
 7. Commit (never update git config, never skip hooks, never force-push unless explicitly requested).
 8. Run `git status` to verify.
 

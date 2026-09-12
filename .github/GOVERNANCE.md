@@ -56,7 +56,7 @@ Direct commits and force-pushes to `release/*` fail CI (`protect-release`). Enab
 - Do not allow force pushes
 - Require status check `protect-release`
 
-`scripts/git/apply_github_rulesets.sh` applies the same rules via `gh` after the remote exists.
+`.github/scripts/apply_github_rulesets.sh` reapplies the same rules via `gh` if a ruleset needs to be recreated.
 
 ## Workflows
 

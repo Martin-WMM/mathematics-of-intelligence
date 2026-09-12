@@ -14,6 +14,6 @@ jobs:
         with:
           python-version: "3.12"
       - name: Check head name
-        run: python scripts/git/check_branch_name.py --name "${{ github.head_ref }}"
+        run: python .github/scripts/check_branch_name.py --name "${{ github.head_ref }}"
       - name: Check base target
-        run: python scripts/git/check_pr_target.py --head "${{ github.head_ref }}" --base "${{ github.base_ref }}"
+        run: python .github/scripts/check_pr_target.py --head "${{ github.head_ref }}" --base "${{ github.base_ref }}"

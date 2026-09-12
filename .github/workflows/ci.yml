@@ -46,7 +46,7 @@ jobs:
             echo "range=${{ github.event.before }}..${{ github.sha }}" >> "$GITHUB_OUTPUT"
           fi
       - name: Lint messages and sizes
-        run: python scripts/git/check_push_range.py --range "${{ steps.range.outputs.range }}"
+        run: python .github/scripts/check_push_range.py --range "${{ steps.range.outputs.range }}"
 
   branch:
     name: branch-name
@@ -58,7 +58,7 @@ jobs:
         with:
           python-version: "3.12"
       - name: Check branch name
-        run: python scripts/git/check_branch_name.py --name "${GITHUB_REF_NAME}"
+        run: python .github/scripts/check_branch_name.py --name "${GITHUB_REF_NAME}"
 
   website:
     name: website-build

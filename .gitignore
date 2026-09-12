@@ -1,0 +1,59 @@
+# LaTeX
+book/build/
+*.aux
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.bbl
+*.blg
+*.bcf
+*.run.xml
+*.nav
+*.snm
+*.vrb
+
+# Website
+website/node_modules/
+website/**/node_modules/
+website/**/dist/
+website/**/.vite/
+website/**/*.local
+
+# Built PDFs copied into the reader (regenerate from book/)
+website/apps/web/public/pdfs/*.pdf
+
+# Manim
+animations/media/
+animations/.venv/
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+.venv/
+venv/
+env/
+*.egg-info/
+
+# Examples / notebooks
+.ipynb_checkpoints/
+examples/output/
+examples/data/
+*.pt
+*.pth
+*.ckpt
+
+# OS & editors
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+.cursor/*
+!.cursor/skills/
+!.cursor/skills/**
+.env
+.env.*

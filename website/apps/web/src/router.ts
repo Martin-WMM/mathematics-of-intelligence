@@ -5,7 +5,7 @@ import ResourcesPage from "./pages/ResourcesPage.vue";
 import ThreadPage from "./pages/ThreadPage.vue";
 
 export const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     { path: "/", name: "home", component: HomePage },
     { path: "/read", name: "read", component: ReadPage },

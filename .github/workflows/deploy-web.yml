@@ -1,8 +1,15 @@
 name: Deploy web
 
 on:
+  pull_request:
+    types: [closed]
+    branches:
+      - main
+      - "release/**"
   push:
-    branches: [main]
+    branches:
+      - main
+      - "release/**"
     paths:
       - "website/**"
       - ".github/workflows/deploy-web.yml"
@@ -18,27 +25,81 @@ concurrency:
 jobs:
   deploy-web:
     name: deploy-web
+    if: github.event_name != 'pull_request' || github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.merge_commit_sha || github.sha }}
+      - uses: dorny/paths-filter@v3
+        id: filter
+        if: github.event_name == 'pull_request'
+        with:
+          filters: |
+            website:
+              - 'website/**'
+              - '.github/workflows/deploy-web.yml'
+      - name: Decide whether to publish
+        id: publish
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ "${GITHUB_EVENT_NAME}" = "workflow_dispatch" ] || [ "${GITHUB_EVENT_NAME}" = "push" ]; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          elif [ "${{ steps.filter.outputs.website }}" = "true" ]; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "run=false" >> "$GITHUB_OUTPUT"
+            echo "No website changes in the merged pull request."
+          fi
+      - name: Fetch compiled book PDFs
+        if: steps.publish.outputs.run == 'true'
+        continue-on-error: true
+        uses: actions/checkout@v4
+        with:
+          ref: deploy/book
+          path: .book-pdfs
+          lfs: true
+          sparse-checkout: |
+            book-light.pdf
+            book-dark.pdf
+          sparse-checkout-cone-mode: false
+      - name: Copy book PDFs into the site
+        if: steps.publish.outputs.run == 'true'
+        shell: bash
+        run: |
+          dest="website/apps/web/public/pdfs"
+          mkdir -p "$dest"
+          if [ -f .book-pdfs/book-light.pdf ] && [ -f .book-pdfs/book-dark.pdf ]; then
+            cp .book-pdfs/book-light.pdf .book-pdfs/book-dark.pdf "$dest/"
+            echo "Attached PDFs from deploy/book."
+          else
+            echo "No LFS PDFs on deploy/book yet; the reader will show the missing-PDF state."
+          fi
       - uses: pnpm/action-setup@v4
+        if: steps.publish.outputs.run == 'true'
         with:
           version: 9
       - uses: actions/setup-node@v4
+        if: steps.publish.outputs.run == 'true'
         with:
           node-version: 22
           cache: pnpm
           cache-dependency-path: website/pnpm-lock.yaml
       - name: Build
+        if: steps.publish.outputs.run == 'true'
         working-directory: website
+        env:
+          VITE_BASE: /${{ github.event.repository.name }}/
         run: |
           pnpm install --frozen-lockfile
           pnpm build
       - name: Publish deploy/web
+        if: steps.publish.outputs.run == 'true'
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: deploy/web
           publish_dir: website/apps/web/dist
           force_orphan: true
-          commit_message: "📦[website][build]: publish production site"
+          commit_message: "📦[website][build]: publish site after merged PR"

@@ -33,3 +33,7 @@ pnpm dev
 ```
 
 The reader looks for `apps/web/public/pdfs/book-light.pdf` and `book-dark.pdf`. Build those from `book/` first (`scripts/build.ps1 all`).
+
+## Deploy
+
+A merged pull request that changes `website/` runs `pnpm build` and publishes `website/apps/web/dist` to `deploy/web`. If `deploy/book` already has Git LFS PDFs, the workflow copies them into `public/pdfs` before the build. Do not push that branch by hand.

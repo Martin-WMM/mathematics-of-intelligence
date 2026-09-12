@@ -50,7 +50,6 @@ jobs:
 
   branch:
     name: branch-name
-    if: github.event_name == 'push'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -58,7 +57,9 @@ jobs:
         with:
           python-version: "3.12"
       - name: Check branch name
-        run: python .github/scripts/check_branch_name.py --name "${GITHUB_REF_NAME}"
+        env:
+          BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
+        run: python .github/scripts/check_branch_name.py --name "${BRANCH_NAME}"
 
   website:
     name: website-build

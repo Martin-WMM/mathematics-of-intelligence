@@ -38,6 +38,8 @@ def allowed_bases(head_kind: str, head: str, base: str) -> bool:
         return base == f"release/{scope}"
     if head_kind == "release":
         return base == "main"
+    if head_kind == "dependabot":
+        return base == "main"
     if head_kind in {"main", "deploy"}:
         return False
     return False
@@ -72,7 +74,8 @@ def main() -> int:
         print(
             "flow: feature/* -> release/* ; "
             "fix/release/<scope>/* -> release/<scope> ; "
-            "fix/main/* -> main ; release/* -> main",
+            "fix/main/* -> main ; release/* -> main ; "
+            "dependabot/* -> main",
             file=sys.stderr,
         )
         return 1

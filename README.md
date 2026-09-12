@@ -28,6 +28,7 @@ Current capabilities of this repository:
 - After a pull request that touches `website/` is **merged**, GitHub Actions runs `pnpm build` and publishes the static files to [`deploy/web`](https://github.com/Martin-WMM/mathematics-of-intelligence/tree/deploy/web).
 - After a pull request that touches `book/` is **merged**, GitHub Actions compiles the light and dark PDFs, stores them with Git LFS on [`deploy/book`](https://github.com/Martin-WMM/mathematics-of-intelligence/tree/deploy/book), and copies them into the Pages `pdfs/` folder.
 - Branch flow, commit format, issue and PR templates, and push checks. See [`.github/GOVERNANCE.md`](.github/GOVERNANCE.md).
+- Security and quality: Dependabot, CodeQL, secret scanning, and private reports via [`SECURITY.md`](SECURITY.md).
 - Companion trees for Manim scenes, PowerPoint decks, and small examples, grouped by mathematics / AI / topics.
 
 Recorded changes live in [`CHANGELOG.md`](CHANGELOG.md).

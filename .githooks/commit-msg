@@ -1,0 +1,3 @@
+#!/bin/sh
+# Validate <emoji>[scope][type]: message
+exec python scripts/git/check_commit_message.py "$1"

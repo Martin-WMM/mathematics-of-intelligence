@@ -1,0 +1,45 @@
+name: Deploy preview
+
+on:
+  push:
+    branches:
+      - "release/**"
+    paths:
+      - "website/**"
+      - ".github/workflows/deploy-preview.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: deploy-preview
+  cancel-in-progress: true
+
+jobs:
+  deploy-preview:
+    name: deploy-preview
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: website/pnpm-lock.yaml
+      - name: Build
+        working-directory: website
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm build
+      - name: Publish deploy/preview
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: deploy/preview
+          publish_dir: website/apps/web/dist
+          force_orphan: true
+          commit_message: "📦[website][build]: publish preview site from ${{ github.ref_name }}"

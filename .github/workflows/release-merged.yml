@@ -1,0 +1,38 @@
+name: Release merged
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [main]
+
+jobs:
+  remind-tag:
+    if: github.event.pull_request.merged == true && startsWith(github.head_ref, 'release/')
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      - name: Comment tag reminder
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const scope = context.payload.pull_request.head.ref.replace(/^release\//, "");
+            const body = [
+              "Merged `release/" + scope + "` into `main`.",
+              "",
+              "Create an annotated tag and push it:",
+              "",
+              "```bash",
+              "git checkout main && git pull",
+              "git tag -a book-" + scope + "-0.1.0 -m \"release " + scope + "\"",
+              "git push origin book-" + scope + "-0.1.0",
+              "```",
+              "",
+              "`deploy/web` rebuilds from `main` when `website/` changed.",
+            ].join("\n");
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.pull_request.number,
+              body,
+            });

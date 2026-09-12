@@ -1,0 +1,19 @@
+name: Protect deploy
+
+on:
+  push:
+    branches:
+      - "deploy/**"
+
+jobs:
+  protect-deploy:
+    name: protect-deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Allow GitHub Actions only
+        run: |
+          if [ "${GITHUB_ACTOR}" != "github-actions[bot]" ]; then
+            echo "deploy/* is updated only by GitHub Actions. Do not push it by hand."
+            exit 1
+          fi
+          echo "OK: ${GITHUB_ACTOR}"

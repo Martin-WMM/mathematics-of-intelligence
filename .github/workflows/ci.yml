@@ -1,0 +1,90 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+      - "release/**"
+      - "feature/**"
+      - "fix/**"
+  pull_request:
+    branches:
+      - main
+      - "release/**"
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  commits:
+    name: commit-lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Resolve revision range
+        id: range
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ "${GITHUB_EVENT_NAME}" = "pull_request" ]; then
+            git fetch origin "${{ github.base_ref }}"
+            echo "range=origin/${{ github.base_ref }}..HEAD" >> "$GITHUB_OUTPUT"
+          elif [ "${{ github.event.before }}" = "0000000000000000000000000000000000000000" ]; then
+            git fetch origin main || true
+            if git rev-parse --verify origin/main >/dev/null 2>&1; then
+              echo "range=origin/main..HEAD" >> "$GITHUB_OUTPUT"
+            else
+              echo "range=HEAD" >> "$GITHUB_OUTPUT"
+            fi
+          else
+            echo "range=${{ github.event.before }}..${{ github.sha }}" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Lint messages and sizes
+        run: python scripts/git/check_push_range.py --range "${{ steps.range.outputs.range }}"
+
+  branch:
+    name: branch-name
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Check branch name
+        run: python scripts/git/check_branch_name.py --name "${GITHUB_REF_NAME}"
+
+  website:
+    name: website-build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            website:
+              - 'website/**'
+      - uses: pnpm/action-setup@v4
+        if: steps.filter.outputs.website == 'true'
+        with:
+          version: 9
+      - uses: actions/setup-node@v4
+        if: steps.filter.outputs.website == 'true'
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: website/pnpm-lock.yaml
+      - name: Install and build
+        if: steps.filter.outputs.website == 'true'
+        working-directory: website
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm --filter @moi/web exec vue-tsc --noEmit
+          pnpm build

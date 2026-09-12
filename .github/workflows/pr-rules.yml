@@ -1,0 +1,19 @@
+name: PR rules
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, edited]
+
+jobs:
+  pr-rules:
+    name: pr-target
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Check head name
+        run: python scripts/git/check_branch_name.py --name "${{ github.head_ref }}"
+      - name: Check base target
+        run: python scripts/git/check_pr_target.py --head "${{ github.head_ref }}" --base "${{ github.base_ref }}"

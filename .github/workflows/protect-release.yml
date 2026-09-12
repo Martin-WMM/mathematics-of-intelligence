@@ -1,0 +1,39 @@
+name: Protect release
+
+on:
+  push:
+    branches:
+      - "release/**"
+
+jobs:
+  protect-release:
+    name: protect-release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Reject force push
+        if: github.event.forced
+        run: |
+          echo "Force-push to release/* is forbidden. Open a feature or fix PR."
+          exit 1
+      - name: Allow branch creation
+        if: github.event.created
+        run: echo "Created release branch from existing history."
+      - name: Require merge commits after creation
+        if: ${{ !github.event.created && !github.event.forced }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          BEFORE="${{ github.event.before }}"
+          AFTER="${{ github.sha }}"
+          failed=0
+          for sha in $(git rev-list --reverse "${BEFORE}..${AFTER}"); do
+            parents=$(git rev-list --parents -n 1 "${sha}" | awk '{print NF}')
+            if [ "${parents}" -lt 3 ]; then
+              echo "Direct commit ${sha} on release/* is forbidden. Merge a PR."
+              failed=1
+            fi
+          done
+          exit "${failed}"

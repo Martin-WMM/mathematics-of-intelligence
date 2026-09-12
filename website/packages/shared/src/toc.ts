@@ -17,30 +17,26 @@ export const BOOK_TITLE = "Mathematics of Intelligence";
 
 export const PARTS: PartMeta[] = [
   {
-    id: "representation",
-    title: "Representation",
+    id: "foundations",
+    title: "Mathematical Foundations",
     chapters: [
-      { id: "signal-to-vector", title: "From Signal to Vector" },
-      { id: "beyond-vectors", title: "Structure Beyond Vectors" },
+      { id: "spaces-and-inner-products", title: "Spaces, Vectors, and Inner Products" },
+      { id: "operators-and-spectra", title: "Linear Maps, Spectra, and Decompositions" },
+      { id: "probability", title: "Probability and Expectation" },
       { id: "information", title: "Information and Compression" },
-      { id: "representations-in-ai", title: "Representations in Modern AI" },
-    ],
-  },
-  {
-    id: "learning",
-    title: "Learning",
-    chapters: [
-      { id: "loss-and-risk", title: "Loss, Risk, and Empirical Risk" },
       { id: "optimization", title: "Optimization as Geometry" },
-      { id: "generalization", title: "Generalization" },
-      { id: "learning-dynamics", title: "Learning Algorithms as Dynamics" },
-      { id: "classical-to-deep", title: "From Classical Learning to Deep Learning" },
+      { id: "dynamics", title: "Dynamics and Iteration" },
+      { id: "beyond-vectors", title: "Structure Beyond Vectors" },
     ],
   },
   {
-    id: "generation",
-    title: "Generation",
+    id: "mathematics-of-ai",
+    title: "Mathematics of AI",
     chapters: [
+      { id: "representation", title: "Representation" },
+      { id: "learning-and-risk", title: "Learning, Loss, and Risk" },
+      { id: "generalization", title: "Generalization" },
+      { id: "deep-learning", title: "From Classical Learning to Deep Learning" },
       { id: "modeling-distributions", title: "Modeling Distributions" },
       { id: "autoregressive", title: "Autoregressive Factorization" },
       { id: "latent-variables", title: "Latent Variable Models" },
@@ -49,14 +45,15 @@ export const PARTS: PartMeta[] = [
     ],
   },
   {
-    id: "intelligence",
-    title: "Intelligence",
+    id: "intelligence-and-beyond",
+    title: "Intelligence and Beyond",
     chapters: [
-      { id: "prediction-vs-reasoning", title: "Prediction versus Reasoning" },
+      { id: "prediction-and-reasoning", title: "Prediction versus Reasoning" },
       { id: "memory", title: "Memory and Retrieval" },
       { id: "planning", title: "Planning and Control" },
       { id: "world-models", title: "World Models" },
       { id: "agents", title: "Agents" },
+      { id: "beyond", title: "Beyond" },
     ],
   },
 ];

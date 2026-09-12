@@ -8,10 +8,9 @@ body:
     attributes:
       label: Part
       options:
-        - representation
-        - learning
-        - generation
-        - intelligence
+        - foundations
+        - mathematics-of-ai
+        - intelligence-and-beyond
         - other
     validations:
       required: true
@@ -19,7 +18,7 @@ body:
     id: chapter
     attributes:
       label: Chapter or topic
-      placeholder: signal-to-vector
+      placeholder: spaces-and-inner-products
   - type: textarea
     id: goal
     attributes:
@@ -30,5 +29,5 @@ body:
     id: release
     attributes:
       label: Target release branch
-      placeholder: release/representation
+      placeholder: release/book
       description: Features merge here, not into main.

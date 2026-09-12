@@ -76,7 +76,7 @@ jobs:
           else
             echo "No LFS PDFs on deploy/book yet; the reader will show the missing-PDF state."
           fi
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@v6
         if: steps.publish.outputs.run == 'true'
         with:
           version: 9

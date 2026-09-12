@@ -48,8 +48,7 @@ Write on the feature branch. Open a PR into `release/<scope>`, merge with a **me
 | Writing / feature | `feature/<scope>/<keywords>` | `feature/representation/signal-to-vector` |
 | Fix on a release | `fix/release/<scope>/<keywords>` | `fix/release/representation/tikz-arrow` |
 | Fix on main | `fix/main/<keywords>` | `fix/main/reader-iframe` |
-| Built website (CI only) | `deploy/web` | production site from `main` |
-| Built website preview (CI only) | `deploy/preview` | site from the latest `release/*` push |
+| Built website (CI only) | `deploy/web` | `pnpm build` output after a website PR is merged |
 
 `<scope>` is one of: `representation`, `learning`, `generation`, `intelligence`, `book`, `website`, `animations`, `ppts`, `examples`, `ci`, `docs`, `repo`, or a chapter slug `ch-<kebab>`.
 
@@ -86,8 +85,7 @@ Direct commits and force-pushes to `release/*` fail CI (`protect-release`). Enab
 | `pr-rules.yml` | Every PR | Head name and allowed base |
 | `protect-release.yml` | Push to `release/*` | No force-push; after creation, only merge commits |
 | `protect-deploy.yml` | Push to `deploy/*` | Only `github-actions[bot]` |
-| `deploy-web.yml` | Push to `main` when the site changes | Build and publish `deploy/web` |
-| `deploy-preview.yml` | Push to `release/*` when the site changes | Build and publish `deploy/preview` |
+| `deploy-web.yml` | Website PR merged, or `website/` pushed to `main` / `release/*` | `pnpm build` and publish `deploy/web` |
 | `sync-labels.yml` | Push of `.github/labels.yml` to `main` | Create/update labels |
 | `release-merged.yml` | `release/*` merged to `main` | Comment with a tag command |
 

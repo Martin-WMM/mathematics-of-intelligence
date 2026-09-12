@@ -44,3 +44,5 @@ Requires `pdflatex` and `bibtex` (MiKTeX or TeX Live). `latexmk` is optional.
 ```
 
 A successful build also copies the PDFs into `website/apps/web/public/pdfs/` for the embedded reader.
+
+When a pull request that changes `book/` is merged, GitHub Actions runs the same build and publishes the PDFs with Git LFS on `deploy/book`. GitHub Pages cannot serve LFS pointers, so the workflow also copies the files onto `deploy/web/pdfs/`.

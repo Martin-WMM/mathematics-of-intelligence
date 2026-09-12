@@ -49,6 +49,7 @@ Write on the feature branch. Open a PR into `release/<scope>`, merge with a **me
 | Fix on a release | `fix/release/<scope>/<keywords>` | `fix/release/representation/tikz-arrow` |
 | Fix on main | `fix/main/<keywords>` | `fix/main/reader-iframe` |
 | Built website (CI only) | `deploy/web` | `pnpm build` output after a website PR is merged |
+| Compiled book PDFs (CI only) | `deploy/book` | Light/dark PDFs stored with Git LFS after a book PR is merged |
 
 `<scope>` is one of: `representation`, `learning`, `generation`, `intelligence`, `book`, `website`, `animations`, `ppts`, `examples`, `ci`, `docs`, `repo`, or a chapter slug `ch-<kebab>`.
 
@@ -63,7 +64,7 @@ Write on the feature branch. Open a PR into `release/<scope>`, merge with a **me
 | `fix/main/…` | `main` |
 | `release/<scope>` | `main` |
 
-`deploy/*` is not a PR target and must not be pushed by hand.
+`deploy/*` is not a PR target and must not be pushed by hand. `deploy/book` holds Git LFS PDFs; `deploy/web` holds the Pages site, including non-LFS copies of those PDFs so the reader can load them.
 
 ## Release protection
 
@@ -86,6 +87,7 @@ Direct commits and force-pushes to `release/*` fail CI (`protect-release`). Enab
 | `protect-release.yml` | Push to `release/*` | No force-push; after creation, only merge commits |
 | `protect-deploy.yml` | Push to `deploy/*` | Only `github-actions[bot]` |
 | `deploy-web.yml` | Website PR merged, or `website/` pushed to `main` / `release/*` | `pnpm build` and publish `deploy/web` |
+| `deploy-book.yml` | Book PR merged, or `book/` pushed to `main` / `release/*` | Compile PDFs, store them on `deploy/book` with Git LFS, copy onto Pages |
 | `sync-labels.yml` | Push of `.github/labels.yml` to `main` | Create/update labels |
 | `release-merged.yml` | `release/*` merged to `main` | Comment with a tag command |
 

@@ -36,4 +36,4 @@ The reader looks for `apps/web/public/pdfs/book-light.pdf` and `book-dark.pdf`. 
 
 ## Deploy
 
-A merged pull request that changes `website/` runs `pnpm build` and publishes `website/apps/web/dist` to `deploy/web`. Do not push that branch by hand.
+A merged pull request that changes `website/` runs `pnpm build` and publishes `website/apps/web/dist` to `deploy/web`. If `deploy/book` already has Git LFS PDFs, the workflow copies them into `public/pdfs` before the build. Do not push that branch by hand.

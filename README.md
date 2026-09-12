@@ -26,6 +26,7 @@ Current capabilities of this repository:
 - Two book editions from the same source: light (`book-light.tex`) and dark (`book-dark.tex`). The PDFs currently carry the title and author; chapters will be written on later feature branches.
 - A Vue 3 site (`website/`) with English / 中文 UI, light and dark theme, and an embedded PDF reader.
 - After a pull request that touches `website/` is **merged**, GitHub Actions runs `pnpm build` and publishes the static files to [`deploy/web`](https://github.com/Martin-WMM/mathematics-of-intelligence/tree/deploy/web).
+- After a pull request that touches `book/` is **merged**, GitHub Actions compiles the light and dark PDFs, stores them with Git LFS on [`deploy/book`](https://github.com/Martin-WMM/mathematics-of-intelligence/tree/deploy/book), and copies them into the Pages `pdfs/` folder.
 - Branch flow, commit format, issue and PR templates, and push checks. See [`.github/GOVERNANCE.md`](.github/GOVERNANCE.md).
 - Companion trees for Manim scenes, PowerPoint decks, and small examples, grouped by mathematics / AI / topics.
 
@@ -110,4 +111,4 @@ Commit messages are English and follow:
 
 Each commit is at most **500** changed lines. `CHANGELOG.md` counts. Full rules: [`.github/GOVERNANCE.md`](.github/GOVERNANCE.md) and the [git-commit skill](.cursor/skills/git-commit/SKILL.md).
 
-If a merged pull request changes `website/`, the deploy workflow publishes `deploy/web`. Do not push `deploy/*` by hand.
+If a merged pull request changes `website/`, the deploy workflow publishes `deploy/web`. If it changes `book/`, another workflow compiles the PDFs and writes them to `deploy/book` through Git LFS. Do not push `deploy/*` by hand.

@@ -45,6 +45,7 @@ create_or_update "protect-main" '{
       "type": "required_status_checks",
       "parameters": {
         "strict_required_status_checks_policy": false,
+        "do_not_enforce_on_create": true,
         "required_status_checks": [
           { "context": "commit-lint" },
           { "context": "pr-target" }
@@ -77,6 +78,7 @@ create_or_update "protect-release" '{
       "type": "required_status_checks",
       "parameters": {
         "strict_required_status_checks_policy": false,
+        "do_not_enforce_on_create": true,
         "required_status_checks": [
           { "context": "protect-release" },
           { "context": "commit-lint" },

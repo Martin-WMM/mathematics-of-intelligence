@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Delegate to the repository-wide commit size check.
+"""Delegate to the repository commit size check.
 
 ``CHANGELOG.md`` is included. There is no exclusion list.
 """
@@ -12,13 +12,13 @@ import sys
 
 
 def main() -> int:
-    """Run ``scripts/git/check_commit_size.py`` with the same arguments.
+    """Run ``.github/scripts/check_commit_size.py`` with the same arguments.
 
     Returns:
         Process exit code from the shared checker.
     """
     repo_root = pathlib.Path(__file__).resolve().parents[4]
-    target = repo_root / "scripts" / "git" / "check_commit_size.py"
+    target = repo_root / ".github" / "scripts" / "check_commit_size.py"
     if not target.is_file():
         print(f"ERROR: missing {target}", file=sys.stderr)
         return 2

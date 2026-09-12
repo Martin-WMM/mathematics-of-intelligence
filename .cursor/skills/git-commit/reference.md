@@ -15,7 +15,7 @@
 | `animations` | Manim library or scenes |
 | `ppts` | PowerPoint decks |
 | `examples` | Example programs |
-| `ci` | GitHub Actions, hooks, `scripts/git/` |
+| `ci` | GitHub Actions, hooks, `.github/scripts/` |
 | `docs` | README, governance, templates that are documentation |
 | `repo` | Cross-cutting root files, labels, ignore rules |
 

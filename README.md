@@ -2,12 +2,12 @@
 
 ## Introduction
 
-*Mathematics of Intelligence* is a long-term monograph on the mathematics of modern artificial intelligence. The book is written in **English**. Two threads run through every artifact:
+*Mathematics of Intelligence* is a long-term English manuscript by Martin M. W. It is a working map of AI theory---symbols and arguments, not a claim to be a mathematics treatise---so that new work is easier to place. The book claims no originality: the arguments come from mainstream papers, textbooks, monographs, and public talks. Two threads run through every artifact:
 
-- **Mathematics** — structures introduced when a chapter needs them
-- **AI** — models and algorithms as the laboratory
+- **Mathematics** — calculus as the start; then the ideas that keep returning (including stochastic processes and convex optimisation)
+- **AI** — models and algorithms; missing mathematics is filled in when a chapter needs it, and tied to engineering where that is honest
 
-The narrative spine is **Representation → Learning → Generation → Intelligence**. Finance, physics, and other sciences appear later as *topics*, not as top-level folders.
+The narrative spine is **Mathematical Foundations → Mathematics of AI → Intelligence and Beyond**. Physics, finance, and other sciences appear later as *topics*, not as top-level folders.
 
 | Path | What it is |
 |------|------------|
@@ -23,7 +23,7 @@ The website is the only JavaScript monorepo. LaTeX and Python stay outside `webs
 
 Current capabilities of this repository:
 
-- Two book editions from the same source: light (`book-light.tex`) and dark (`book-dark.tex`). The PDFs currently carry the title and author; chapters will be written on later feature branches.
+- Two book editions from the same source: light (`book-light.tex`) and dark (`book-dark.tex`). Both compile the three-part outline (Mathematical Foundations → Mathematics of AI → Intelligence and Beyond) plus References; later feature branches expand one part at a time.
 - A Vue 3 site (`website/`) with English / 中文 UI, light and dark theme, and an embedded PDF reader.
 - After a pull request that touches `website/` is **merged**, GitHub Actions runs `pnpm build` and publishes the static files to [`deploy/web`](https://github.com/Martin-WMM/mathematics-of-intelligence/tree/deploy/web).
 - After a pull request that touches `book/` is **merged**, GitHub Actions compiles the light and dark PDFs, stores them with Git LFS on [`deploy/book`](https://github.com/Martin-WMM/mathematics-of-intelligence/tree/deploy/book), and copies them into the Pages `pdfs/` folder.
@@ -37,19 +37,21 @@ Recorded changes live in [`CHANGELOG.md`](CHANGELOG.md).
 
 ### Book
 
-Requires `pdflatex` (MiKTeX or TeX Live). From `book/`:
+Requires `pdflatex` (MiKTeX or TeX Live). From the repository root (not `book/`):
 
 ```powershell
-.\scripts\build.ps1 all
-.\scripts\build.ps1 light
-.\scripts\build.ps1 dark
+.\scripts\render-pdf.cmd
+.\scripts\render-pdf.cmd light
+.\scripts\render-pdf.cmd dark
 ```
 
 ```bash
-./scripts/build.sh all
+./scripts/render-pdf.sh
+./scripts/render-pdf.sh light
+./scripts/render-pdf.sh dark
 ```
 
-Outputs `book/build/book-light.pdf` and `book/build/book-dark.pdf`, and copies them to `website/apps/web/public/pdfs/` for the reader.
+Outputs `book/build/book-light.pdf` and `book/build/book-dark.pdf`, and copies them to `website/apps/web/public/pdfs/` for the reader. The same build can still be run from `book/` via `.\scripts\build.ps1`.
 
 ### Website
 

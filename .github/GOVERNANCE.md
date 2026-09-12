@@ -20,6 +20,25 @@ main → fix/main/<keywords> → (PR) main → git tag
 
 `release/*` is never edited on the branch itself. Open a `feature/*` or `fix/release/*` pull request.
 
+## Starting a release line
+
+A new `release/<scope>` cannot be pushed from a laptop: the ruleset requires a pull request. Create the ref from `main` with the API, then branch work off it.
+
+```bash
+git fetch origin
+git checkout main
+git pull origin main
+
+gh api repos/:owner/:repo/git/refs \
+  -f ref="refs/heads/release/<scope>" \
+  -f sha="$(git rev-parse origin/main)"
+
+git fetch origin
+git checkout -B feature/<scope>/<keywords> origin/release/<scope>
+```
+
+Write on the feature branch. Open a PR into `release/<scope>`, merge with a **merge commit** (squash and rebase are disabled). Then open `release/<scope>` → `main`, merge the same way, and tag `main`.
+
 ## Branch names
 
 | Kind | Pattern | Example |
@@ -54,7 +73,8 @@ Direct commits and force-pushes to `release/*` fail CI (`protect-release`). Enab
 - Target: `release/**`
 - Require a pull request
 - Do not allow force pushes
-- Require status check `protect-release`
+- Require status checks `commit-lint` and `pr-target` on pull requests
+- Do not enforce those checks when the `release/<scope>` ref is first created
 
 `.github/scripts/apply_github_rulesets.sh` reapplies the same rules via `gh` if a ruleset needs to be recreated.
 

@@ -81,7 +81,7 @@ jobs:
           filters: |
             website:
               - 'website/**'
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@v6
         if: steps.filter.outputs.website == 'true'
         with:
           version: 9

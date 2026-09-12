@@ -33,6 +33,7 @@ PATTERNS = {
     "fix-main": re.compile(rf"^fix/main/({KEYWORDS})$"),
     "fix-release": re.compile(rf"^fix/release/({SEGMENT})/({KEYWORDS})$"),
     "deploy": re.compile(r"^deploy/(web|preview|book)$"),
+    "dependabot": re.compile(r"^dependabot/[A-Za-z0-9._-]+/.+$"),
 }
 
 
@@ -44,7 +45,7 @@ def classify_branch(name: str) -> str | None:
 
     Returns:
         One of ``main``, ``release``, ``feature``, ``fix-main``,
-        ``fix-release``, ``deploy``, or ``None``.
+        ``fix-release``, ``deploy``, ``dependabot``, or ``None``.
     """
     name = name.removeprefix("refs/heads/")
     for kind, pattern in PATTERNS.items():
@@ -73,7 +74,8 @@ def main() -> int:
         print(
             "allowed: main | release/<scope> | feature/<scope>/<keywords> | "
             "fix/main/<keywords> | fix/release/<scope>/<keywords> | "
-            "deploy/web | deploy/preview | deploy/book",
+            "deploy/web | deploy/preview | deploy/book | "
+            "dependabot/<ecosystem>/…",
             file=sys.stderr,
         )
         return 1

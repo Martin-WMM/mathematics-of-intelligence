@@ -50,6 +50,7 @@ Write on the feature branch. Open a PR into `release/<scope>`, merge with a **me
 | Fix on main | `fix/main/<keywords>` | `fix/main/reader-iframe` |
 | Built website (CI only) | `deploy/web` | `pnpm build` output after a website PR is merged |
 | Compiled book PDFs (CI only) | `deploy/book` | Light/dark PDFs stored with Git LFS after a book PR is merged |
+| Dependabot (CI only) | `dependabot/<ecosystem>/…` | Automated dependency updates; may PR only to `main` |
 
 `<scope>` is one of: `representation`, `learning`, `generation`, `intelligence`, `book`, `website`, `animations`, `ppts`, `examples`, `ci`, `docs`, `repo`, or a chapter slug `ch-<kebab>`.
 
@@ -63,8 +64,11 @@ Write on the feature branch. Open a PR into `release/<scope>`, merge with a **me
 | `fix/release/<scope>/…` | `release/<scope>` |
 | `fix/main/…` | `main` |
 | `release/<scope>` | `main` |
+| `dependabot/…` | `main` |
 
 `deploy/*` is not a PR target and must not be pushed by hand. `deploy/book` holds Git LFS PDFs; `deploy/web` holds the Pages site, including non-LFS copies of those PDFs so the reader can load them.
+
+Dependabot is the only bot that may open a `dependabot/*` pull request into `main`. Those commits skip the emoji commit-message check. Do not push `dependabot/*` by hand.
 
 ## Release protection
 
@@ -104,3 +108,16 @@ After `release/<scope>` merges to `main`, create an annotated tag, for example `
 ```
 
 English message. At most 500 changed lines per commit. `CHANGELOG.md` counts.
+
+Dependabot commits are exempt from this format.
+
+## Security and quality
+
+The public repository uses GitHub's Security tab:
+
+- Dependabot alerts and weekly version updates (`.github/dependabot.yml`)
+- Secret scanning with push protection
+- CodeQL default setup (`javascript-typescript`, `python`, `actions`)
+- Private vulnerability reporting (`SECURITY.md`)
+
+Do not make CodeQL a required status check until the first scan results have been reviewed.

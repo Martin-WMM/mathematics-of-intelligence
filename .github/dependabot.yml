@@ -1,0 +1,34 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /website
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    labels:
+      - "area:website"
+      - "type:chore"
+  - package-ecosystem: pip
+    directory: /examples
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    labels:
+      - "area:examples"
+      - "type:chore"
+  - package-ecosystem: pip
+    directory: /animations
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    labels:
+      - "area:animations"
+      - "type:chore"
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    labels:
+      - "area:ci"
+      - "type:chore"

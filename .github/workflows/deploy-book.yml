@@ -56,7 +56,7 @@ jobs:
           fi
       - name: Compile light and dark PDFs
         if: steps.publish.outputs.run == 'true'
-        uses: xu-cheng/texlive-action@v2
+        uses: xu-cheng/texlive-action@v3
         with:
           scheme: small
           run: bash book/scripts/build.sh all

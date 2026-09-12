@@ -46,11 +46,16 @@ jobs:
             echo "range=${{ github.event.before }}..${{ github.sha }}" >> "$GITHUB_OUTPUT"
           fi
       - name: Lint messages and sizes
-        if: "github.actor != 'dependabot[bot]' && !startsWith(github.head_ref, 'dependabot/')"
-        run: python .github/scripts/check_push_range.py --range "${{ steps.range.outputs.range }}"
-      - name: Accept Dependabot commits
-        if: "github.actor == 'dependabot[bot]' || startsWith(github.head_ref, 'dependabot/')"
-        run: echo "OK: Dependabot commits skip the repository commit format"
+        env:
+          ACTOR: ${{ github.actor }}
+          HEAD_REF: ${{ github.head_ref }}
+        run: |
+          set -euo pipefail
+          if [ "${ACTOR}" = "dependabot[bot]" ] || [[ "${HEAD_REF}" == dependabot/* ]]; then
+            echo "OK: Dependabot commits skip the repository commit format"
+            exit 0
+          fi
+          python .github/scripts/check_push_range.py --range "${{ steps.range.outputs.range }}"
 
   branch:
     name: branch-name

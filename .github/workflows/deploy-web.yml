@@ -80,7 +80,7 @@ jobs:
         if: steps.publish.outputs.run == 'true'
         with:
           version: 9
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         if: steps.publish.outputs.run == 'true'
         with:
           node-version: 22

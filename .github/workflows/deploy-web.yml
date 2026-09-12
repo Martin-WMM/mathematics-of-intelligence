@@ -28,7 +28,7 @@ jobs:
     if: github.event_name != 'pull_request' || github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           ref: ${{ github.event.pull_request.merge_commit_sha || github.sha }}
       - uses: dorny/paths-filter@v3
@@ -55,7 +55,7 @@ jobs:
       - name: Fetch compiled book PDFs
         if: steps.publish.outputs.run == 'true'
         continue-on-error: true
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           ref: deploy/book
           path: .book-pdfs

@@ -1,0 +1,9 @@
+\chapter{Diffusion, Scores, and Flows}
+\label{ch:diffusion}
+
+Iterative generation corrupts data with noise and learns to reverse the corruption. Scores, SDEs, and deterministic flows are different coordinates on the same idea: transport a simple distribution onto a data distribution.
+
+The conceptual graph is more important than the product name:
+\[
+\text{noise}\ \rightarrow\ \text{score}\ \rightarrow\ \text{SDE/ODE}\ \rightarrow\ \text{sampler}.
+\]

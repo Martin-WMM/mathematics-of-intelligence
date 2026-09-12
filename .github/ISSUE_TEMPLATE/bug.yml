@@ -1,0 +1,40 @@
+name: Bug
+description: Something is wrong in the book, site, or tooling
+title: "[bug] "
+labels: ["type:fix"]
+body:
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - book
+        - website
+        - animations
+        - ppts
+        - examples
+        - ci
+        - docs
+    validations:
+      required: true
+  - type: dropdown
+    id: target
+    attributes:
+      label: Fix against
+      options:
+        - main (fix/main/…)
+        - a release branch (fix/release/<scope>/…)
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual
+    validations:
+      required: true

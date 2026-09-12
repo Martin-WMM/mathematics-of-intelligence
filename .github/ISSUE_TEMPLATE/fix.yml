@@ -1,0 +1,25 @@
+name: Small fix
+description: Temporary fix branch against main or a release
+title: "[fix] "
+labels: ["type:fix", "flow:fix"]
+body:
+  - type: dropdown
+    id: line
+    attributes:
+      label: Line to patch
+      options:
+        - main
+        - release
+    validations:
+      required: true
+  - type: input
+    id: scope
+    attributes:
+      label: Release scope (if not main)
+      placeholder: representation
+  - type: textarea
+    id: change
+    attributes:
+      label: What to change
+    validations:
+      required: true

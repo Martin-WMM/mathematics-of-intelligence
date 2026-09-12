@@ -1,0 +1,34 @@
+name: Book work
+description: Write or revise a part or chapter
+title: "[book] "
+labels: ["area:book", "type:feat"]
+body:
+  - type: dropdown
+    id: part
+    attributes:
+      label: Part
+      options:
+        - representation
+        - learning
+        - generation
+        - intelligence
+        - other
+    validations:
+      required: true
+  - type: input
+    id: chapter
+    attributes:
+      label: Chapter or topic
+      placeholder: signal-to-vector
+  - type: textarea
+    id: goal
+    attributes:
+      label: What should land in the English text
+    validations:
+      required: true
+  - type: input
+    id: release
+    attributes:
+      label: Target release branch
+      placeholder: release/representation
+      description: Features merge here, not into main.

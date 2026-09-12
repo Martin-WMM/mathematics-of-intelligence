@@ -1,0 +1,89 @@
+- name: area:book
+  color: "8A4B2F"
+  description: LaTeX book
+- name: area:website
+  color: "3F5B73"
+  description: Vue website
+- name: area:animations
+  color: "5B4F7A"
+  description: Manim animations
+- name: area:ppts
+  color: "6B5344"
+  description: PowerPoint decks
+- name: area:examples
+  color: "3F6B4F"
+  description: Example programs
+- name: area:ci
+  color: "4A5560"
+  description: Workflows and git checks
+- name: area:docs
+  color: "5C564C"
+  description: Documentation
+- name: area:repo
+  color: "3A3A3A"
+  description: Cross-cutting repository files
+
+- name: part:representation
+  color: "8A4B2F"
+  description: Book part Representation
+- name: part:learning
+  color: "6B3A24"
+  description: Book part Learning
+- name: part:generation
+  color: "5C4A32"
+  description: Book part Generation
+- name: part:intelligence
+  color: "3F5B73"
+  description: Book part Intelligence
+
+- name: type:feat
+  color: "3F6B4F"
+  description: New work
+- name: type:fix
+  color: "8B3A3A"
+  description: Bug or factual correction
+- name: type:docs
+  color: "5C564C"
+  description: Documentation
+- name: type:refactor
+  color: "5B4F7A"
+  description: Restructure without behavior change
+- name: type:chore
+  color: "4A5560"
+  description: Maintenance
+- name: type:ci
+  color: "3F5B73"
+  description: CI change
+
+- name: flow:feature
+  color: "3F6B4F"
+  description: feature/* → release/*
+- name: flow:release
+  color: "8A4B2F"
+  description: release/* → main
+- name: flow:fix
+  color: "8B3A3A"
+  description: fix/* branch
+
+- name: status:draft
+  color: "6B6B6B"
+  description: Not ready
+- name: status:ready
+  color: "3F6B4F"
+  description: Ready for review
+- name: status:blocked
+  color: "8B3A3A"
+  description: Blocked
+- name: status:needs-review
+  color: "8A6B2F"
+  description: Needs review
+
+- name: priority:low
+  color: "6B6B6B"
+  description: Low priority
+- name: priority:normal
+  color: "5C564C"
+  description: Normal priority
+- name: priority:high
+  color: "8B3A3A"
+  description: High priority

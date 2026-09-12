@@ -1,0 +1,35 @@
+name: Feature
+description: Website, animations, slides, examples, or tooling
+title: "[feat] "
+labels: ["type:feat"]
+body:
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - website
+        - animations
+        - ppts
+        - examples
+        - ci
+        - docs
+        - repo
+    validations:
+      required: true
+  - type: input
+    id: branch
+    attributes:
+      label: Proposed feature branch
+      placeholder: feature/website/pdf-outline
+  - type: input
+    id: release
+    attributes:
+      label: Target release branch
+      placeholder: release/website
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposal
+    validations:
+      required: true

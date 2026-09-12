@@ -1,0 +1,10 @@
+{
+  "name": "moi-website",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm --filter @moi/web dev",
+    "build": "pnpm --filter @moi/web build",
+    "preview": "pnpm --filter @moi/web preview"
+  },
+  "packageManager": "pnpm@9.15.4"
+}

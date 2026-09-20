@@ -286,6 +286,83 @@ OpenSpec root as a side effect. First confirm the situation with
 to initialize OpenSpec. In this repository `openspec list --json` should report
 the repository root rather than `"root": null`.
 
+### Standard OpenSpec lifecycle
+
+The normal lifecycle is:
+
+```text
+explore -> propose -> review/update -> apply -> validate -> archive
+                         \-> sync specs (optional, before archive)
+```
+
+Use the matching workflow below. Slash commands are shorthand for the same
+workflow when the editor integration provides them.
+
+1. **Explore** (`/opsx-explore`): inspect the codebase and existing specs,
+   clarify the problem, constraints, and alternatives. Explore is a thinking
+   mode: it may read files and run read-only commands, but it must not edit
+   implementation code. It may capture explicitly approved planning artifacts;
+   do not auto-create a change merely because an idea was discussed.
+
+2. **Propose** (`/opsx-propose <change-name>`): create the change with
+   `openspec new change <change-name>`, then follow the artifact graph. For
+   each artifact that is `ready`, first run
+   `openspec instructions <artifact-id> --change <change-name> --json` and use
+   its returned `template`, `instruction`, `dependencies`, `context`, `rules`,
+   and `resolvedOutputPath`. Re-run
+   `openspec status --change <change-name> --json` after each artifact. Do not
+   invent artifact names or paths, and do not create blocked or unrequested
+   prerequisites without approval.
+
+3. **Review or update** (`/opsx-update <change-name>`): revise existing
+   planning artifacts when requirements, design decisions, or scope change.
+   Read all related artifacts first and keep them coherent. This workflow
+   edits planning artifacts only; it never edits implementation code and does
+   not create missing artifacts. If the intent has materially changed, start a
+   new change instead of silently mutating the old one.
+
+4. **Apply** (`/opsx-apply <change-name>`): select the change, inspect
+   `openspec status --change <change-name> --json`, then obtain the dynamic
+   instructions with
+   `openspec instructions apply --change <change-name> --json`. Read every
+   path in the returned `contextFiles` before editing code. Implement tasks in
+   order, keep the implementation focused, and immediately change each fully
+   completed task from `- [ ]` to `- [x]`. Never mark a partial, deferred, or
+   unverified task complete. Pause and update the artifacts if a task is
+   ambiguous, exposes a design problem, or requires behavior outside the
+   approved scope.
+
+5. **Validate**: validate the active change after planning or implementation,
+   and validate main specs after a sync:
+
+   ```bash
+   openspec validate <change-name> --strict
+   openspec validate --specs --strict
+   openspec validate --all --strict
+   ```
+
+   Use the narrowest applicable command during iteration and `--all` before a
+   broad handoff. Treat validation failures as work to fix; do not weaken the
+   spec or skip a required artifact to make the command pass.
+
+6. **Sync specs** (`/opsx-sync <change-name>`, optional): merge delta specs
+   into the durable specs without archiving the change. First read
+   `artifactPaths.specs.existingOutputPaths` from
+   `openspec status --change <change-name> --json`; sync only those concrete
+   paths, never infer delta files from unrelated artifacts. Preserve existing
+   requirements and scenarios, merge ADDED/MODIFIED/REMOVED/RENAMED blocks
+   intelligently, and keep main specs in the canonical `## Requirements`
+   format. Run `openspec validate --specs` afterward. The change remains
+   active until it is separately archived.
+
+7. **Archive** (`/opsx-archive <change-name>`): archive only after the
+   implementation and required review are complete. The workflow checks
+   artifact status and task checkboxes, compares delta specs with main specs,
+   performs the required sync, validates the result, and moves the completed
+   change into the archive with a date-prefixed name when needed. If artifacts
+   or tasks are incomplete, report them and ask before proceeding; do not claim
+   completion merely because the code appears finished.
+
 For a quick status check, use:
 
 ```bash
@@ -300,6 +377,36 @@ Use the JSON output as the source of truth for `schemaName`, `planningHome`,
 `contextFiles`. A custom schema may use artifact names other than proposal,
 design, specs, and tasks; never hard-code those names when the CLI reports
 different ones.
+
+### OpenSpec stores and command safety
+
+Most repositories use their nearest local `openspec/` root. A registered
+standalone OpenSpec repository is a store. If a task names or lives in a
+store, discover it first and pass the selected store ID consistently to every
+root-aware command:
+
+```bash
+openspec store list --json
+openspec list --json --store <store-id>
+openspec status --change <change-name> --json --store <store-id>
+openspec instructions apply --change <change-name> --json --store <store-id>
+```
+
+The `--store` flag applies to root-aware commands such as `new change`,
+`status`, `instructions`, `list`, `show`, `validate`, `archive`, `doctor`,
+`context`, `schemas`, and `view`. Keep it on all follow-up commands. Do not
+mix a store's artifacts with this checkout's local `openspec/` directory.
+
+OpenSpec artifacts should be committed together with the implementation they
+describe, subject to the normal branch, commit-size, and review rules. Do not
+commit generated PDFs, build output, editor caches, or unrelated files merely
+because an OpenSpec task mentions them. Before handoff, check both:
+
+```bash
+openspec validate --all --strict
+git diff --check
+git status --short
+```
 
 ## 7. Git, branches, commits, and pull requests
 

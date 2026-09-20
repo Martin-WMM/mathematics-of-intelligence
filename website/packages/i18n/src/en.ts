@@ -1,7 +1,7 @@
 export const en = {
   meta: {
     title: "Mathematics of Intelligence",
-    tagline: "A narrative from representation to agency",
+    tagline: "From mathematical foundations to intelligence and beyond",
   },
   nav: {
     home: "Home",
@@ -13,15 +13,15 @@ export const en = {
   },
   home: {
     kicker: "English monograph · two PDF editions",
-    lead: "Mathematics is the language. Artificial intelligence is the primary laboratory. Other sciences enter only when a structure is genuinely shared.",
-    spine: "Representation → Learning → Generation → Intelligence",
+    lead: "A working map of AI theory: symbols and arguments on one thread, models and engineering on the other. Other fields enter only when a structure is genuinely shared.",
+    spine: "Mathematical Foundations → Mathematics of AI → Intelligence and Beyond",
     threadsTitle: "Two threads",
     mathTitle: "Mathematics",
-    mathBody: "Structures are introduced when a chapter needs them: vector spaces, probability, optimisation, information, dynamics. There is no separate prerequisite part.",
+    mathBody: "The start is a first course in calculus. Part I then collects the ideas that keep returning: linear structure, probability, stochastic processes, convex optimisation, information, and dynamics.",
     aiTitle: "Artificial intelligence",
-    aiBody: "Models and algorithms are the experiments. The book asks what mathematical object is actually in use, not which product name is current.",
+    aiBody: "Models and algorithms are the second thread. Missing mathematics is filled in when a chapter needs it, and tied to engineering where that is honest.",
     topicsTitle: "Later topics",
-    topicsBody: "Finance, physics, control, and information theory can appear as optional topics once a bridge is real. They do not sit at the top of the repository.",
+    topicsBody: "Physics, finance, and related fields can appear once a bridge is real. They do not sit at the top of the repository.",
     ctaRead: "Read the book",
     ctaResources: "Animations, slides, examples",
   },

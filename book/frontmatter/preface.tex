@@ -1,27 +1,85 @@
-\clearpage
-\pagenumbering{roman}
 \chapter*{Preface}
 \addcontentsline{toc}{chapter}{Preface}
+\label{front:preface}
 
-This book is written in English. It follows two intellectual threads---mathematics and artificial intelligence---along one narrative spine:
+\section*{Who I am}
+
+I am Martin~M.~W., born in March 1996. I studied software engineering at Nanjing University of Information Science and Technology for both my bachelor's and master's degrees. My work is the design and deployment of AI algorithms. Most of that experience is with large-language-model agents.
+
+I do not write this book as a mathematician. I write it as an engineer who needs a way to keep up.
+
+\section*{Why this book}
+
+The title says mathematics. I would not claim that much. What I can put on the page, for now, is a set of symbols, a few arguments, and the habit of asking what object a new method is actually using.
+
+The first reason for the book is practical. Artificial intelligence changes quickly. A new name appears; the underlying idea is often an old one in another costume. If I can keep a private map of the theory---written in public, so that I cannot cheat---then the next frontier is easier to read, and easier to take back into my work.
+
+The second reason is a conflict of interest. My job is agents and systems that ship. Product detail, proprietary stacks, and client work do not belong here. Theory is the part of the subject that least collides with that work. So the book stays on structures, not on implementations I cannot share.
+
+\section*{What this book does not claim}
+
+This book claims no originality.
+
+There is no new theorem, no new model, and no new method here that I present as mine. The arguments come from well-known and mainstream papers, textbooks, and monographs. Some views and explanations also come from public talks and videos on the internet. Where I can name a source, I will. Where a line of thought is common property of the field, I will say so rather than dress it as a discovery.
+
+If a passage looks sharp, the sharpness belongs to the source, not to this manuscript. My work is arrangement, translation into one map, and the connections I need in order to keep reading.
+
+\section*{Two threads}
+
+Two threads run through the text.
+
+The first is mathematics---or, more honestly, the symbols and arguments I need. The assumed start is a first course in calculus from a university education. From there the book collects the ideas that keep returning: linear structure, probability, stochastic processes, convex optimisation, information, and dynamics. This is a working inventory, not a substitute for a specialist monograph in any one of those fields.
+
+The second is AI. The book follows representations, learning rules, generative models, and the systems built on them, and fills in the mathematics at the moment it is needed. Where a derivation and a deployed system can be placed on the same page without pretending they are the same thing, they will be.
+
+Once those two threads are in place, I want room for other fields---physics, finance, and whatever else shares a structure rather than a metaphor. Those subjects are later topics. They are not a second spine.
 
 \[
-\text{Representation}\ \rightarrow\ \text{Learning}\ \rightarrow\ \text{Generation}\ \rightarrow\ \text{Intelligence}.
+\text{Mathematics}\ \leftrightarrow\ \text{AI},
+\qquad
+\text{then other fields, when the bridge is real}.
 \]
 
-Mathematics is the language. AI is the primary laboratory. Other sciences---finance, physics, control, information theory---enter only when a shared structure is genuine.
+\section*{How the book is organised}
 
-The project around this book also ships a website (PDF reader), Manim animations, slide decks, and small examples. Those artifacts are not substitutes for the text; they illustrate it.
+After this preface comes a notation list in four groups---calculus; matrices and vectors; probability, measure, and function spaces; integral transforms---plus a short list of objects used in later parts. Chapters will point back to those tables. The book then has three parts, and references at the end.
 
-\chapter*{How to Read}
-\addcontentsline{toc}{chapter}{How to Read}
+\subsection*{Part I --- Mathematical Foundations}
 
-Each chapter asks three questions:
+Part~I lays out the language used later: spaces and inner products; maps and spectra; probability and expectation; information; optimisation; dynamics; and objects that are not flat vectors. Stochastic processes and convex optimisation belong here when they are needed, not as a complete course.
 
-\begin{enumerate}
-  \item What is the underlying mathematical structure?
-  \item Why does that structure appear in this model or algorithm?
-  \item Where else does the same structure appear?
-\end{enumerate}
+\subsection*{Part II --- Mathematics of AI}
 
-Draft chapters mark what is still open. Speculation is never presented as fact.
+Part~II starts from the models. Representation, risk, generalisation, deep networks, and generative families are read as objects, then the missing mathematics is supplied, and---where it helps---tied to the kind of engineering that actually runs.
+
+\subsection*{Part III --- Intelligence and Beyond}
+
+Part~III asks what those objects have to do with intelligence, and what can be borrowed from elsewhere without pretending the borrowing is a proof: reasoning, memory, planning, agents, and later bridges to physics, finance, and related fields.
+
+\section*{How to read}
+
+The book need not be read in one straight line. You can walk from a piece of mathematics toward a model, or from a model back to the symbols that make it possible:
+
+\[
+\text{Mathematics}\ \rightarrow\ \text{AI},
+\qquad
+\text{AI}\ \rightarrow\ \text{Mathematics}.
+\]
+
+Definitions, theorems, corollaries, and examples share one chapter-wise counter (Definition~1.1, Theorem~1.2, \ldots). Proofs and remarks are unnumbered. Draft passages mark what is still open. Speculation is never presented as fact.
+
+\section*{Background}
+
+A first course in calculus is the intended start. Linear algebra and elementary probability help, but they will be rebuilt when a later chapter depends on them. Programming may make some examples clearer. The centre of the book is still the argument, not the repository of code.
+
+Symbols are defined at first use. The standing lists after this preface are grouped so that the text and the notation tables can refer to each other.
+
+\section*{A living book}
+
+This is a working manuscript. It will change as the field changes, and as my own map of it changes. The source, two PDF editions, a website, animations, slides, and small examples live here:
+
+\begin{center}
+\url{https://github.com/Martin-WMM/mathematics-of-intelligence}
+\end{center}
+
+The companions illustrate the text; they do not replace it. If the book does its job, a new paper will take less time to place---and the placement will be honest enough to use at work.

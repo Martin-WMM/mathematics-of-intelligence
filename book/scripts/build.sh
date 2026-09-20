@@ -5,23 +5,35 @@ TARGET="${1:-all}"
 BOOK_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$BOOK_DIR"
 
+copy_built_pdf() {
+  local from="$1"
+  local to="$2"
+  if cp -f "$from" "$to"; then
+    echo "Wrote $to"
+  else
+    echo "Could not replace $to. Close the PDF viewer or the website Read tab, then run the script again. Fresh file: $from" >&2
+  fi
+}
+
 build_edition() {
   local root="$1"
   local stem="${root%.tex}"
+  local work="${stem}-wip"
   mkdir -p build
   echo "Building $root ..."
-  pdflatex -interaction=nonstopmode -halt-on-error -output-directory=build "$root"
+  pdflatex -interaction=nonstopmode -halt-on-error -output-directory=build -jobname="$work" "$root"
   if command -v bibtex >/dev/null 2>&1; then
-    bibtex "build/$stem" || true
+    bibtex "build/$work" || true
   fi
-  pdflatex -interaction=nonstopmode -halt-on-error -output-directory=build "$root"
-  pdflatex -interaction=nonstopmode -halt-on-error -output-directory=build "$root"
+  pdflatex -interaction=nonstopmode -halt-on-error -output-directory=build -jobname="$work" "$root"
+  pdflatex -interaction=nonstopmode -halt-on-error -output-directory=build -jobname="$work" "$root"
 
   local dest="$BOOK_DIR/../website/apps/web/public/pdfs"
+  copy_built_pdf "build/${work}.pdf" "build/${stem}.pdf"
   if [[ -d "$(dirname "$dest")" ]]; then
     mkdir -p "$dest"
-    cp "build/${stem}.pdf" "$dest/${stem}.pdf"
-    echo "Copied ${stem}.pdf to website/apps/web/public/pdfs/"
+    copy_built_pdf "build/${work}.pdf" "$dest/${stem}.pdf"
+    echo "App PDF: $dest/${stem}.pdf"
   fi
 }
 

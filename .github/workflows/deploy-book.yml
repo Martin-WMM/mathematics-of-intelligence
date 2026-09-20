@@ -58,7 +58,10 @@ jobs:
         if: steps.publish.outputs.run == 'true'
         uses: xu-cheng/texlive-action@v3
         with:
-          scheme: small
+          # The book uses tcolorbox and its skin/breakable libraries. The
+          # small scheme omits tcolorbox, so use the complete TeX Live image
+          # for reproducible CI builds of both editions.
+          scheme: full
           run: bash book/scripts/build.sh all
       - name: Publish PDFs to Git LFS
         if: steps.publish.outputs.run == 'true'

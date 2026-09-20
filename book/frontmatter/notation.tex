@@ -1,0 +1,138 @@
+\chapter*{Notation}
+\addcontentsline{toc}{chapter}{Notation}
+\label{front:notation}
+
+Symbols are defined at first use. The tables below are the standing vocabulary, grouped so that a later chapter can point back here---and so that a symbol here can point forward to the chapter that uses it.
+
+This list will grow. It is not a course in any of the subjects named.
+
+\begingroup
+\renewcommand{\thetable}{N.\arabic{table}}
+
+\section*{Calculus}
+\label{not:calculus}
+
+The intended start is a first university course in calculus. Table~\ref{tab:notation-calculus} is the core; derivatives and integrals return in Chapters~\ref{ch:optimization} and~\ref{ch:dynamics}.
+
+\begin{table}[htbp]
+\centering
+\moicaption{Calculus}{Maps, derivatives, integrals, and asymptotic notation. Later chapters point here when a rate, a gradient, or an integral is the object in play.}
+\label{tab:notation-calculus}
+\begin{tabular}{@{}ll@{}}
+\toprule
+Symbol & Meaning \\
+\midrule
+$\N,\Z,\R,\C$ & Natural, integer, real, and complex numbers \\
+$f\colon \R^n\to\R^m$ & A map from an $n$-vector to an $m$-vector \\
+$\partial_i f$, $\grad f$ & Partial derivative; gradient \\
+$\Hess f$, $Hf$ & Hessian of a scalar $f$ \\
+$Df$, $J_f$ & Derivative / Jacobian of a vector-valued map \\
+$\dfrac{\mathrm{d}}{\mathrm{d}t}$ & Ordinary derivative in a scalar parameter \\
+$\int_{\Omega} f$ & Integral of $f$ over a domain $\Omega$ \\
+$o(\cdot)$, $O(\cdot)$ & Little-o and big-O asymptotics \\
+$\arg\min$, $\arg\max$ & Minimiser and maximiser of an objective \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section*{Matrices and vectors}
+\label{not:linear}
+
+Inner products and norms are the language of Chapter~\ref{ch:spaces-and-inner-products}. Spectra and decompositions are taken up in Chapter~\ref{ch:operators-and-spectra}.
+
+\begin{table}[htbp]
+\centering
+\moicaption{Matrices and vectors}{Linear algebra used as a language for representation, scores, and parameter updates. The geometry of $\langle u,v\rangle$ is Figure~\ref{fig:inner-product} in Chapter~\ref{ch:spaces-and-inner-products}.}
+\label{tab:notation-linear}
+\begin{tabular}{@{}ll@{}}
+\toprule
+Symbol & Meaning \\
+\midrule
+$x\in\R^d$ & A real vector of dimension $d$ \\
+$x^\top$, $x_i$ & Transpose; $i$-th coordinate \\
+$\langle u,v\rangle$ & Inner product \\
+$\lVert x\rVert$, $\lVert x\rVert_p$ & Induced norm; $\ell^p$ norm \\
+$A\in\R^{m\times n}$ & A real matrix with $m$ rows and $n$ columns \\
+$A^\top$, $A^{-1}$, $A^{+}$ & Transpose, inverse, and Moore--Penrose pseudoinverse \\
+$\tr A$, $\det A$, $\mathrm{rank}\,A$ & Trace, determinant, and rank \\
+$I_d$, $\diag(v)$ & Identity of size $d$; diagonal matrix from a vector \\
+$\lVert A\rVert_2$, $\lVert A\rVert_F$ & Operator (spectral) norm; Frobenius norm \\
+$\lambda(A)$, $\sigma(A)$ & Eigenvalues; singular values \\
+$uv^\top$, $A\otimes B$ & Outer product; Kronecker product \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section*{Probability, measure, and function spaces}
+\label{not:probability}
+
+Expectation and conditionals are fixed in Chapter~\ref{ch:probability}. Information quantities return in Chapter~\ref{ch:information}. Hilbert-space language is used whenever a score is an inner product, including later generative chapters.
+
+\begin{table}[htbp]
+\centering
+\moicaption{Probability, measure, and function spaces}{Random objects, measures, and $L^p$ / Hilbert spaces. Measure-theoretic and functional-analytic names appear only when a later argument needs them.}
+\label{tab:notation-probability}
+\begin{tabular}{@{}ll@{}}
+\toprule
+Symbol & Meaning \\
+\midrule
+$(\Omega,\mathcal{F},\Prob)$ & A probability space \\
+$X\sim p$ & A random variable with law $p$ \\
+$p(x)$, $p(x\mid y)$ & Density or mass; conditional \\
+$\E[X]$, $\Var(X)$, $\Cov(X,Y)$ & Expectation, variance, and covariance \\
+$\ind_A$ & Indicator of a set $A$ \\
+$\delta_x$ & Dirac measure at $x$ \\
+$\mu$, $\dfrac{\mathrm{d}\mu}{\mathrm{d}\nu}$ & A measure; Radon--Nikodym derivative \\
+$L^p(\mu)$ & Functions with integrable $p$-th power \\
+$\Hilbert$ & A Hilbert space \\
+$\langle\cdot,\cdot\rangle_{\Hilbert}$ & Inner product on $\Hilbert$ \\
+$T^{*}$ & Adjoint of a linear operator $T$ \\
+$\KL(p\,\|\,q)$ & Kullback--Leibler divergence \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section*{Integral transforms}
+\label{not:transforms}
+
+Transforms turn a function on one domain into a function on another. They will be invoked from dynamics, scores, and generative models---in particular Chapter~\ref{ch:dynamics} and Chapter~\ref{ch:diffusion}---rather than treated as a separate part.
+
+\begin{table}[htbp]
+\centering
+\moicaption{Integral transforms}{Fourier, Laplace, convolution, and the characteristic function. Each is a change of coordinates, not a new kind of object.}
+\label{tab:notation-transforms}
+\begin{tabular}{@{}ll@{}}
+\toprule
+Symbol & Meaning \\
+\midrule
+$\Fourier f$, $\hat{f}$ & Fourier transform of $f$ \\
+$\Fourier^{-1}\hat{f}$ & Inverse Fourier transform \\
+$\Lapl\{f\}$ & Laplace transform of $f$ \\
+$(f*g)(x)$ & Convolution of $f$ and $g$ \\
+$\varphi_X(t)$ & Characteristic function $\E[e^{\mathrm{i}tX}]$ \\
+$M_X(t)$ & Moment-generating function $\E[e^{tX}]$, when it exists \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section*{Objects in later parts}
+\label{not:objects}
+
+These names are not mathematics in themselves. They label the things Part~\ref{part:mathematics-of-ai} and Part~\ref{part:intelligence-and-beyond} manipulate.
+
+\begin{table}[htbp]
+\centering
+\moicaption{Objects in later parts}{Loss, data, and model class as they appear from Part~\ref{part:mathematics-of-ai} onward. They sit on top of the tables above, not beside them.}
+\label{tab:notation-objects}
+\begin{tabular}{@{}ll@{}}
+\toprule
+Symbol & Meaning \\
+\midrule
+$\loss$ & Loss or objective \\
+$\data$ & Data set or empirical measure \\
+$\model$ & Model class \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\endgroup

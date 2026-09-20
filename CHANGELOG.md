@@ -6,6 +6,14 @@ Updates to this file **count toward the 500-line commit limit**.
 
 ## Unreleased
 
+- Expand front-matter notation into calculus, linear algebra, probability/measure, and integral transforms, with labels for later cross-references.
+- Require a titled, numbered caption on every figure and table (`Figure 1.1`, `Table 1.1`).
+- Place the notation list in the front matter, immediately after the preface.
+- State in the preface that the book claims no originality and draws on mainstream sources and public talks.
+- Rewrite the preface with the author's background and a two-thread purpose: a working map of AI theory, not a mathematics treatise.
+- Add numbered definition, theorem, corollary, proof, and example blocks that follow the chapter counter.
+- Add a root `scripts/render-pdf` entry that compiles the book PDFs from the repository root.
+- Restructure the book into Mathematical Foundations, Mathematics of AI, Intelligence and Beyond, and References.
 - Allow Dependabot branches into `main`, add weekly update files, and publish a security policy.
 - Root README sections: Introduction, Updates / Features, Usage, Contributes.
 - Book light and dark editions compile to a title page (title and author only).

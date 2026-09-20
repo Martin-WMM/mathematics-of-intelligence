@@ -1,0 +1,19 @@
+% Figures and tables: chapter-wise numbers, required title plus description.
+
+\counterwithin{figure}{chapter}
+\counterwithin{table}{chapter}
+
+\captionsetup{
+  font={small,color=bodyfg},
+  labelfont={bf,color=accent},
+  textfont={color=bodyfg},
+  skip=8pt,
+  justification=raggedright,
+  singlelinecheck=false,
+}
+\captionsetup[table]{position=top, skip=6pt}
+
+% Usage: \moicaption{Title}{Description that may run to several sentences.}
+\newcommand{\moicaption}[2]{%
+  \caption[#1]{\textbf{#1.} #2}%
+}

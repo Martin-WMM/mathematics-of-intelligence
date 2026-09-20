@@ -1,0 +1,56 @@
+\chapter{Spaces, Vectors, and Inner Products}
+\label{ch:spaces-and-inner-products}
+
+A vector $x \in \R^d$ is not merely a container. Its dimension bounds capacity; an inner product defines similarity; a basis decides which variations count as independent. The geometry of that space is already a theory of what can be compared.
+
+Raw observations---pixels, tokens, sensor readings---become usable only after they are placed in such a space. Figure~\ref{fig:inner-product} is the geometry that later chapters reuse as a score.
+
+\begin{figure}[htbp]
+  \centering
+  \input{tikz/inner-product}
+  \moicaption{Inner product in the plane}{The vector $u$ and a reference direction $v$. The dotted segment is the drop that makes $\langle u,v\rangle$ visible as a signed length along $v$.}
+  \label{fig:inner-product}
+\end{figure}
+
+\begin{definition}[Inner product]
+\label{def:inner-product}
+An \emph{inner product} on a real vector space $V$ is a bilinear map
+$\langle \cdot,\cdot\rangle \colon V\times V\to\R$ that is symmetric and
+positive definite: $\langle x,x\rangle\ge 0$, with equality if and only if $x=0$.
+The induced norm is $\lVert x\rVert=\sqrt{\langle x,x\rangle}$.
+\end{definition}
+
+\begin{theorem}[Cauchy--Schwarz]
+\label{thm:cauchy-schwarz}
+For all $u,v\in V$,
+\[
+\lvert\langle u,v\rangle\rvert \le \lVert u\rVert\,\lVert v\rVert.
+\]
+\end{theorem}
+
+\begin{proof}
+If $v=0$ the claim is immediate. Otherwise set
+$t=\langle u,v\rangle/\lVert v\rVert^2$ and expand the inequality
+$\langle u-tv,u-tv\rangle\ge 0$.
+\end{proof}
+
+\begin{corollary}[Cosine bound]
+\label{cor:cosine-bound}
+If $u$ and $v$ are nonzero, the cosine of the angle between them satisfies
+$\lvert\cos\theta\rvert\le 1$, where
+\[
+\cos\theta=\frac{\langle u,v\rangle}{\lVert u\rVert\,\lVert v\rVert}.
+\]
+\end{corollary}
+
+\begin{example}[Cosine similarity]
+\label{ex:cosine-similarity}
+Token or image embeddings are compared by the same cosine. A score near $1$
+means the two vectors point the same way---not that they are close in Euclidean
+distance.
+\end{example}
+
+\begin{remark}
+Later chapters return to Definition~\ref{def:inner-product} when attention,
+retrieval, and contrastive learning reuse inner products as scores.
+\end{remark}

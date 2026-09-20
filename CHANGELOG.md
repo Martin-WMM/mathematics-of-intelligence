@@ -6,6 +6,7 @@ Updates to this file **count toward the 500-line commit limit**.
 
 ## Unreleased
 
+- Expand front-matter notation into calculus, linear algebra, probability/measure, and integral transforms, with labels for later cross-references.
 - Require a titled, numbered caption on every figure and table (`Figure 1.1`, `Table 1.1`).
 - Place the notation list in the front matter, immediately after the preface.
 - State in the preface that the book claims no originality and draws on mainstream sources and public talks.

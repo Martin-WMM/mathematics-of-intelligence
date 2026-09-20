@@ -63,6 +63,16 @@ jobs:
           # for reproducible CI builds of both editions.
           scheme: full
           run: bash book/scripts/build.sh all
+      - name: Upload PDF release artifact
+        if: steps.publish.outputs.run == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: book-pdfs-${{ github.run_id }}
+          path: |
+            book/build/book-light.pdf
+            book/build/book-dark.pdf
+          if-no-files-found: error
+          retention-days: 30
       - name: Publish PDFs to Git LFS
         if: steps.publish.outputs.run == 'true'
         env:

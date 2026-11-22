@@ -65,7 +65,7 @@ jobs:
           run: bash book/scripts/build.sh all
       - name: Upload PDF release artifact
         if: steps.publish.outputs.run == 'true'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: book-pdfs-${{ github.run_id }}
           path: |
